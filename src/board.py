@@ -2,6 +2,7 @@ import numpy as np
 
 SIZE = 4
 
+
 class Board(object):
 
     def __init__(self, board):
@@ -14,13 +15,42 @@ class Board(object):
     def print(self):
         for i in range(SIZE):
             for ii in range(SIZE):
-                print(self.tiles[i*SIZE + ii], end='\t')
+                print(self.tiles[i * SIZE + ii], end='\t')
             print()
         print()
 
-    def move_tile(self, tile_id):
-        if tile_id < 0 or tile_id > 15:
-            raise IndexError(tile_id)
+    def move_tile(self, tile_id):  # TODO: fix this mess xd
+        try:
+            self.move_up(tile_id)
+            return
+        except IndexError:
+            pass
+        except ValueError:
+            pass
+
+        try:
+            self.move_down(tile_id)
+            return
+        except IndexError:
+            pass
+        except ValueError:
+            pass
+
+        try:
+            self.move_left(tile_id)
+            return
+        except IndexError:
+            pass
+        except ValueError:
+            pass
+
+        try:
+            self.move_right(tile_id)
+            return
+        except IndexError:
+            print("nie wykonano ruchu")
+        except ValueError:
+            print("nie wykonano ruchu")
 
     def move_up(self, tile_id):
         if tile_id < SIZE:
@@ -65,4 +95,3 @@ class Board(object):
         temp = self.tiles[tile_id]
         self.tiles[tile_id] = self.tiles[tile_id + 1]
         self.tiles[tile_id + 1] = temp
-
