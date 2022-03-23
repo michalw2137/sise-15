@@ -92,7 +92,7 @@ class Board(object):
         self.blank_pos += SIZE
 
     def check_if_can_move_up(self, tile_id):
-        if tile_id < 0 or tile_id > SIZE * SIZE:
+        if tile_id < 0 or tile_id >= SIZE * SIZE:
             raise IndexError(tile_id, 'move_up')
 
         if tile_id < SIZE:
@@ -109,7 +109,7 @@ class Board(object):
         self.blank_pos -= SIZE
 
     def check_if_can_move_down(self, tile_id):
-        if tile_id < 0 or tile_id > SIZE * SIZE:
+        if tile_id < 0 or tile_id >= SIZE * SIZE:
             raise IndexError(tile_id, 'move_down')
 
         if tile_id >= SIZE * (SIZE - 1):
@@ -128,7 +128,7 @@ class Board(object):
         self.blank_pos += 1
 
     def check_if_can_move_left(self, tile_id):
-        if tile_id < 0 or tile_id > SIZE * SIZE:
+        if tile_id < 0 or tile_id >= SIZE * SIZE:
             raise IndexError(tile_id, 'move_left')
 
         if tile_id % SIZE == 0:

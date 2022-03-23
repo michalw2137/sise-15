@@ -126,6 +126,7 @@ class TestStringMethods(unittest.TestCase):
                        12, 13, 14, 15])
         self.assertEqual(board4.find_legal_moves(), [0, 5, 8])
 
+
 if __name__ == '__main__':
     unittest.main()
     # test = TestStringMethods()
