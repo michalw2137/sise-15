@@ -104,6 +104,8 @@ class TestStringMethods(unittest.TestCase):
                        4, 5, 6, 7,
                        8, 9, 10, 11,
                        12, 13, 14, 15])
+        self.assertEqual(board1.blank_pos, 0)
+
         self.assertEqual(board1.find_legal_moves(), [1, 4])
 
         board2 = Board([1, 0, 2, 3,

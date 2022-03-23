@@ -23,37 +23,40 @@ class Board(object):
 
     def find_legal_moves(self):
         moves = []
+        print(f"1 try: BLAN POSITION = {self.blank_pos}")
         try:
-            self.move_tile(self.blank_pos - 1)
+            self.move_right(self.blank_pos - 1)
             moves.append(self.blank_pos - 1)
-        except IndexError:
-            pass
-        except ValueError:
-            pass
+            print(f"{self.blank_pos - 1}, move_right")
 
+        except (IndexError, ValueError) as e:
+            print(e.args)
+
+        print(f"2 try: BLAN POSITION = {self.blank_pos}")
         try:
-            self.move_tile(self.blank_pos + 1)
+            self.move_left(self.blank_pos + 1)
             moves.append(self.blank_pos + 1)
-        except IndexError:
-            pass
-        except ValueError:
-            pass
+            print(f"{self.blank_pos + 1}, move_left")
 
+        except (IndexError, ValueError) as e:
+            print(e.args)
+
+        print(f"3 try: BLAN POSITION = {self.blank_pos}")
         try:
-            self.move_tile(self.blank_pos - SIZE)
+            self.move_down(self.blank_pos - SIZE)
             moves.append(self.blank_pos - SIZE)
-        except IndexError:
-            pass
-        except ValueError:
-            pass
+            print(f"{self.blank_pos - SIZE}, move_down")
+        except (IndexError, ValueError) as e:
+            print(e.args)
 
+        print(f"4 try: BLAN POSITION = {self.blank_pos}")
         try:
-            self.move_tile(self.blank_pos + SIZE)
+            self.move_up(self.blank_pos + SIZE)
             moves.append(self.blank_pos + SIZE)
-        except IndexError:
-            pass
-        except ValueError:
-            pass
+            print(f"{self.blank_pos + SIZE}, move_up")
+
+        except (IndexError, ValueError) as e:
+            print(e.args)
 
         return moves.sort()
 
@@ -91,6 +94,9 @@ class Board(object):
             print("nie wykonano ruchu")
 
     def move_up(self, tile_id):
+        if tile_id < 0 or tile_id > SIZE * SIZE:
+            raise IndexError(tile_id, 'move_up')
+
         if tile_id < SIZE:
             raise IndexError(tile_id, 'move_up')
 
@@ -103,6 +109,9 @@ class Board(object):
         self.blank_pos += SIZE
 
     def move_down(self, tile_id):
+        if tile_id < 0 or tile_id > SIZE * SIZE:
+            raise IndexError(tile_id, 'move_down')
+
         if tile_id >= SIZE * (SIZE - 1):
             raise IndexError(tile_id, 'move_down')
 
@@ -115,6 +124,9 @@ class Board(object):
         self.blank_pos -= SIZE
 
     def move_left(self, tile_id):
+        if tile_id < 0 or tile_id > SIZE * SIZE:
+            raise IndexError(tile_id, 'move_left')
+
         if tile_id % SIZE == 0:
             raise IndexError(tile_id, 'move_left')
 
@@ -128,6 +140,9 @@ class Board(object):
         self.blank_pos += 1
 
     def move_right(self, tile_id):
+        if tile_id < 0 or tile_id > SIZE*SIZE:
+            raise IndexError(tile_id, 'move_right')
+
         if (tile_id + 1) % SIZE == 0:
             raise IndexError(tile_id, 'move_right')
 
