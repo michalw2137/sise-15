@@ -6,7 +6,9 @@ SIZE = 4
 class Board(object):
 
     def __init__(self, board):
+        self.tiles = []
         self.tiles = board
+        self.blank_pos = self.tiles.index(0)
         self.print()
 
     def set_board(self, board):
@@ -18,6 +20,42 @@ class Board(object):
                 print(self.tiles[i * SIZE + ii], end='\t')
             print()
         print()
+
+    def find_legal_moves(self):
+        moves = []
+        try:
+            self.move_tile(self.blank_pos - 1)
+            moves.append(self.blank_pos - 1)
+        except IndexError:
+            pass
+        except ValueError:
+            pass
+
+        try:
+            self.move_tile(self.blank_pos + 1)
+            moves.append(self.blank_pos + 1)
+        except IndexError:
+            pass
+        except ValueError:
+            pass
+
+        try:
+            self.move_tile(self.blank_pos - SIZE)
+            moves.append(self.blank_pos - SIZE)
+        except IndexError:
+            pass
+        except ValueError:
+            pass
+
+        try:
+            self.move_tile(self.blank_pos + SIZE)
+            moves.append(self.blank_pos + SIZE)
+        except IndexError:
+            pass
+        except ValueError:
+            pass
+
+        return moves.sort()
 
     def move_tile(self, tile_id):  # TODO: fix this mess xd
         try:
@@ -62,6 +100,7 @@ class Board(object):
         temp = self.tiles[tile_id]
         self.tiles[tile_id] = self.tiles[tile_id - SIZE]
         self.tiles[tile_id - SIZE] = temp
+        self.blank_pos += SIZE
 
     def move_down(self, tile_id):
         if tile_id >= SIZE * (SIZE - 1):
@@ -73,6 +112,7 @@ class Board(object):
         temp = self.tiles[tile_id]
         self.tiles[tile_id] = self.tiles[tile_id + SIZE]
         self.tiles[tile_id + SIZE] = temp
+        self.blank_pos -= SIZE
 
     def move_left(self, tile_id):
         if tile_id % SIZE == 0:
@@ -85,6 +125,8 @@ class Board(object):
         self.tiles[tile_id] = self.tiles[tile_id - 1]
         self.tiles[tile_id - 1] = temp
 
+        self.blank_pos += 1
+
     def move_right(self, tile_id):
         if (tile_id + 1) % SIZE == 0:
             raise IndexError(tile_id, 'move_right')
@@ -95,3 +137,5 @@ class Board(object):
         temp = self.tiles[tile_id]
         self.tiles[tile_id] = self.tiles[tile_id + 1]
         self.tiles[tile_id + 1] = temp
+
+        self.blank_pos -= 1

@@ -1,5 +1,3 @@
-from anytree import Node, RenderTree
-
 from src.board import Board
 
 
